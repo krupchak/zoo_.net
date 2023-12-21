@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 
-namespace ZooOwners.Controllers
+namespace CommandsService.Controllers
 {
     [Route("api/c/[controller]")]
     [ApiController]
@@ -16,7 +16,7 @@ namespace ZooOwners.Controllers
         [HttpPost]
         public ActionResult TestInboundConnection()
         {
-            Console.WriteLine("--> Inbound POST # Zoo Owners");
+            Console.WriteLine("--> Inbound POST # Command Service");
 
             return Ok("Inbound test of from Animals Controller");
         }

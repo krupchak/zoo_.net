@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ZooAnimals.Data;
+using ZooAnimals.SyncDataClient.Http;
 
 namespace ZooAnimals
 {
@@ -32,6 +33,8 @@ namespace ZooAnimals
 
             services.AddScoped<IAnimalsRepo, AnimalsRepo>();
 
+            services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
+
             services.AddControllers();
             
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -40,6 +43,8 @@ namespace ZooAnimals
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZooAnimals", Version = "v1" });
             });
+
+            Console.WriteLine($"--> CommandService Endpoint {Configuration["CommandService"]}");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

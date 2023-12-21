@@ -66,3 +66,4 @@ C:\Навчання\3_курс\.NET\zoo_.net\ZooAnimals\obj\Debug\net5.0\refint\
 C:\Навчання\3_курс\.NET\zoo_.net\ZooAnimals\obj\Debug\net5.0\ZooAnimals.pdb
 C:\Навчання\3_курс\.NET\zoo_.net\ZooAnimals\obj\Debug\net5.0\ZooAnimals.genruntimeconfig.cache
 C:\Навчання\3_курс\.NET\zoo_.net\ZooAnimals\obj\Debug\net5.0\ref\ZooAnimals.dll
+C:\Навчання\3_курс\.NET\zoo_.net\ZooAnimals\obj\Debug\net5.0\ZooAnimals.sourcelink.json

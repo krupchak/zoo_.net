@@ -5,6 +5,8 @@ using ZooAnimals.Dtos;
 using ZooAnimals.Models;
 using System.Collections.Generic;
 using System;
+using ZooAnimals.SyncDataClient.Http;
+using System.Threading.Tasks;
 
 namespace ZooAnimals.Controllers
 {
@@ -14,11 +16,16 @@ namespace ZooAnimals.Controllers
     {
         private readonly IAnimalsRepo _repository;
         private readonly IMapper _mapper;
+        private readonly ICommandDataClient _commandDataClient;
 
-        public AnimalsController(IAnimalsRepo repository, IMapper mapper)
+        public AnimalsController(
+            IAnimalsRepo repository, 
+            IMapper mapper, 
+            ICommandDataClient commandDataClient)
         {
             _repository = repository;
             _mapper = mapper;
+            _commandDataClient = commandDataClient;
         }
 
         [HttpGet]
@@ -43,13 +50,22 @@ namespace ZooAnimals.Controllers
         }
 
         [HttpPost]
-        public ActionResult<AnimalsReadDto> CreateAnimal(AnimalsCreateDto animalsCreateDto)
+        public async Task<ActionResult<AnimalsReadDto>> CreateAnimal(AnimalsCreateDto animalsCreateDto)
         {
             var animalModel = _mapper.Map<Animals>(animalsCreateDto);
             _repository.CreateAnimals(animalModel);
             _repository.SaveChanges();
 
             var animalReadDto = _mapper.Map<AnimalsReadDto>(animalModel);
+
+            try
+            {
+                await _commandDataClient.SendAnimalsToCommand(animalReadDto);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"--> Could not send synchronously: {ex.Message}");
+            }
 
             return CreatedAtRoute(nameof(GetAnimalById), new {Id = animalReadDto.Id}, animalReadDto);
         }
