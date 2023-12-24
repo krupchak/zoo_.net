@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: animals-depl
+  name: commands-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: zooanimals
+      app: commandservice
   template:
     metadata:
       labels:
-        app: zooanimals
+        app: commandservice
     spec:
       containers:
-      - name: zooanimals
-        image: nkrupchak/zooanimals:latest
+      - name: commandservice
+        image: nkrupchak/commandservice:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: animals-clusterip-srv
+  name: commands-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: zooanimals
+    app: commandservice
   ports:
-    - name: zooanimals
+    - name: commandservice
       protocol: TCP
       port: 80
       targetPort: 80
