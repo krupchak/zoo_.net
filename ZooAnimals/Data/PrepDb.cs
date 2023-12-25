@@ -3,21 +3,35 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace ZooAnimals.Data
 {
     public static class PrepDb 
     {
-        public static void PrepPopulation(IApplicationBuilder app)
+        public static void PrepPopulation(IApplicationBuilder app, bool isProd)
         {
             using(var serviceScope = app.ApplicationServices.CreateScope())
             {
-                SeepData(serviceScope.ServiceProvider.GetService<AppDbContext>());
+                SeepData(serviceScope.ServiceProvider.GetService<AppDbContext>(), isProd);
             }
         }
 
-        private static void SeepData(AppDbContext context)
+        private static void SeepData(AppDbContext context, bool isProd)
         {
+            if(isProd)
+            {
+                Console.WriteLine("--> Attempting to apply migrations...");
+                try
+                {
+                    context.Database.Migrate();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"--> Could not run migrations: {ex.Message}");
+                }
+            }
+            
             if(!context.Animals.Any())
             {
                 Console.WriteLine("--> Seeding Data...");
