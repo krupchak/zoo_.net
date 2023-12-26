@@ -42,3 +42,12 @@ C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\obj\Debug\net5.0\re
 C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\obj\Debug\net5.0\CommandsService.pdb
 C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\obj\Debug\net5.0\CommandsService.genruntimeconfig.cache
 C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\obj\Debug\net5.0\ref\CommandsService.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\appsettings.Production.json
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\RabbitMQ.Client.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Google.Protobuf.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Grpc.AspNetCore.Server.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Grpc.AspNetCore.Server.ClientFactory.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Grpc.Core.Api.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Grpc.Net.Client.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Grpc.Net.ClientFactory.dll
+C:\Навчання\3_курс\.NET\zoo_.net\CommandsService\bin\Debug\net5.0\Grpc.Net.Common.dll

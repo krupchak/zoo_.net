@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using ZooAnimals.SyncDataClient.Http;
 using System.Threading.Tasks;
+using ZooAnimals.AsyncDataServices;
 
 namespace ZooAnimals.Controllers
 {
@@ -17,15 +18,18 @@ namespace ZooAnimals.Controllers
         private readonly IAnimalsRepo _repository;
         private readonly IMapper _mapper;
         private readonly ICommandDataClient _commandDataClient;
+        private readonly IMessageBusClient _messageBusClient;
 
         public AnimalsController(
             IAnimalsRepo repository, 
             IMapper mapper, 
-            ICommandDataClient commandDataClient)
+            ICommandDataClient commandDataClient,
+            IMessageBusClient messageBusClient)
         {
             _repository = repository;
             _mapper = mapper;
             _commandDataClient = commandDataClient;
+            _messageBusClient = messageBusClient;
         }
 
         [HttpGet]
@@ -58,6 +62,7 @@ namespace ZooAnimals.Controllers
 
             var animalReadDto = _mapper.Map<AnimalsReadDto>(animalModel);
 
+            // Send Sync Message
             try
             {
                 await _commandDataClient.SendAnimalsToCommand(animalReadDto);
@@ -65,6 +70,18 @@ namespace ZooAnimals.Controllers
             catch(Exception ex)
             {
                 Console.WriteLine($"--> Could not send synchronously: {ex.Message}");
+            }
+
+            //Send Async Message
+            try
+            {
+                var animalsPublishedDto = _mapper.Map<AnimalsPublishedDto>(animalReadDto);
+                animalsPublishedDto.Event = "Animals_Published";
+                _messageBusClient.PublishNewAnimals(animalsPublishedDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"--> Could not send asynchronously: {ex.Message}");
             }
 
             return CreatedAtRoute(nameof(GetAnimalById), new {Id = animalReadDto.Id}, animalReadDto);

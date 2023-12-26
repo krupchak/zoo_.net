@@ -1,0 +1,2 @@
+obj\Debug\net5.0\Protos/Animals.cs \
+obj\Debug\net5.0\Protos/AnimalsGrpc.cs: Protos/animals.proto
